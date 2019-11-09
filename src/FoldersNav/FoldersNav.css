@@ -1,0 +1,8 @@
+* {
+  color: #fff;
+  background-color: #282c34;
+}
+
+.sideBar {
+  flex-grow: 1,
+}
