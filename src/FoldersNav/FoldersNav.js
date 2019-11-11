@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './FoldersNav.css'
-import Folders from '../Folders/Folders';
 import { NavLink , Link } from 'react-router-dom';
 
 

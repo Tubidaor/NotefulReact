@@ -5,7 +5,7 @@ import NoteList from './NoteList/NoteList';
 import NotePageNav from './NotePageNav/NotePageNav';
 import NotePageMain from './NotePageMain/NotePageMain'
 import {Route, NavLink} from 'react-router-dom';
-import folders from './dummy-store';
+import NoteContext from './NoteContext';
 
 
 const findFolder = (folders =[], folderId) =>
@@ -31,7 +31,24 @@ class App extends Component {
 
   componentDidMount() {
     // fake date loading from API call
-    setTimeout(() => this.setState(folders), 600);
+    // setTimeout(() => this.setState(folders), 600);
+    const urlFolders = 'http://localhost:9090/folders'
+    const urlNotes = 'http://localhost:9090/notes'
+
+    fetch(urlFolders)
+    .then(response => response.json())
+    .then(data =>
+      this.setState({
+        folders: data
+      }));
+
+    fetch(urlNotes)
+    .then(response => response.json())
+    .then(data =>
+      this.setState({
+        notes: data
+      }))
+    
 }
 
   renderNavRoutes() {
@@ -74,7 +91,6 @@ class App extends Component {
             path={path}
             render={routeProps => {
               const {folderId} = routeProps.match.params;
-              console.log(folderId)
               const notesForFolder = getNotesForFolder (
                 this.state.notes,
                 folderId
@@ -101,7 +117,14 @@ class App extends Component {
   }
 
   render() {
-    console.log('/folder')
+
+    const contextValue = {
+      folders: this.state.folders,
+      notes: this.state.notes,
+      addNote: () => {},
+      deleteNote: () => {},
+    }
+    
     return (
       <div className="App">
         <nav className='App_nav'>{this.renderNavRoutes()} </nav>
