@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Notes from '../Notes/Notes';
 import NoteContext from '../NoteContext';
 import { getNotesForFolder } from '../globalFunctions';
+import { Link } from 'react-router-dom';
 
 
 export default class NoteList extends Component {
@@ -37,7 +38,7 @@ export default class NoteList extends Component {
               )}
             </ul>
             <div className='Notelist_button_wrapper'>
-              <button> Add Note </button>
+              <Link to='/add-note'>Add Note</Link>
             </div>  
           </div>
     )

@@ -24,7 +24,7 @@ export default class FoldersNav extends Component {
               )}
           </ul>
           <div className="addNotes_button-wrapper">
-            <Link to={'/note/Add-Folder'}> Add folder </Link>
+            <Link to={'/add-folder'}> Add folder </Link>
 
           </div>
         </div>

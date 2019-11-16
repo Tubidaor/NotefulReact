@@ -6,7 +6,8 @@ import NotePageNav from './NotePageNav/NotePageNav';
 import NotePageMain from './NotePageMain/NotePageMain'
 import {Route, NavLink} from 'react-router-dom';
 import NoteContext from './NoteContext';
-import NoteForm from './NoteForm/NoteForm'
+import AddFolder from './AddFolder/AddFolder';
+import AddNote from './AddNote/AddNote';
 
 
 const findFolder = (folders =[], folderId) =>
@@ -50,6 +51,18 @@ class App extends Component {
   handleDeleteNote = (noteId) => {
     this.setState({
       notes: this.state.notes.filter(note => note.id !== noteId)
+    })
+  }
+
+  addFolder = (newFolder) => {
+    this.setState({
+      folders: [...this.state.folders, newFolder]
+    })
+  }
+
+  addNote = (note) => {
+    this.setState({
+      note: [...this.state.notes, note]
     })
   }
 
@@ -119,6 +132,14 @@ class App extends Component {
           // }}
           component={NotePageMain}
         />
+        <Route
+          path='/add-folder'
+          component={AddFolder}
+        />
+        <Route
+          path='/add-note'
+          component={AddNote}
+        />
       </>
     );
   }
@@ -128,8 +149,9 @@ class App extends Component {
     const contextValue = {
       folders: this.state.folders,
       notes: this.state.notes,
-      addNote: () => {},
+      addNote: this.addNote,
       deleteNote: this.handleDeleteNote,
+      addFolder: this.addFolder,  
     }
 
     return (
