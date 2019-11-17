@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 
 export default function NotePageNav (props) {
@@ -17,4 +18,9 @@ NotePageNav.defaultProps = {
   history: {
     goBack: () => {}
   }
+}
+
+NotePageNav.propTypes = {
+  folder: PropTypes.string,
+  history: PropTypes.object
 }

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import NoteContext from '../NoteContext';
+import PropTypes from 'prop-types';
 
 
 import {Link} from 'react-router-dom';
@@ -62,5 +63,9 @@ export default class Notes extends Component {
           </div>
         )
     }
+}
+
+Notes.propTypes = {
+  onDeleteNote: PropTypes.func  
 }
 

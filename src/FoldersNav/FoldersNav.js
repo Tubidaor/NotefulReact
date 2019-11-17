@@ -8,7 +8,6 @@ export default class FoldersNav extends Component {
 
   static contextType = NoteContext;
 
-
   render() {
     const {folders=[]} = this.context
     return (

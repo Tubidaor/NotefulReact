@@ -10,3 +10,4 @@ export const getNotesForFolder = (notes=[], folderId) => (
 ? notes
 : notes.filter(note => note.folderId === folderId)
 )
+

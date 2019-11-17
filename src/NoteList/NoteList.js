@@ -3,6 +3,8 @@ import Notes from '../Notes/Notes';
 import NoteContext from '../NoteContext';
 import { getNotesForFolder } from '../globalFunctions';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import Boundary from '../Boundary/Boundary';
 
 
 export default class NoteList extends Component {
@@ -21,18 +23,20 @@ export default class NoteList extends Component {
     notes,
     folderId
     );
-    console.log(notesForFolder)
+    
     return (
     
           <div className="notesList">
             <ul>
               {notesForFolder.map(note =>
                 <li key={note.id}>
-                  <Notes
-                    id={note.id}
-                    name={note.name}
-                    modified={note.modified}
-                  />
+                  <Boundary>
+                    <Notes
+                      id={note.id}
+                      name={note.name}
+                      modified={note.modified}
+                    />
+                  </Boundary>
                 </li>
                 
               )}
@@ -45,3 +49,6 @@ export default class NoteList extends Component {
   }
 }
 
+NoteList.propTypes = {
+  match: PropTypes.object
+}

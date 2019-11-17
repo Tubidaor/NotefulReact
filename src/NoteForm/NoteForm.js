@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 export default function NoteForm(props) {
 
@@ -10,4 +11,8 @@ export default function NoteForm(props) {
         {...otherProps}
       />
     );
+}
+
+NoteForm.propTypes = {
+  props: PropTypes.object
 }
