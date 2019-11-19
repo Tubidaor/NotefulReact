@@ -5,6 +5,7 @@ import { getNotesForFolder } from '../globalFunctions';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Boundary from '../Boundary/Boundary';
+import './NoteList.css';
 
 
 export default class NoteList extends Component {
@@ -26,7 +27,7 @@ export default class NoteList extends Component {
     
     return (
     
-          <div className="notesList">
+          <div className="NoteListMain">
             <ul>
               {notesForFolder.map(note =>
                 <li key={note.id}>
@@ -41,8 +42,12 @@ export default class NoteList extends Component {
                 
               )}
             </ul>
-            <div className='Notelist_button_wrapper'>
-              <Link to='/add-note'>Add Note</Link>
+            <div className='NoteListMain__button-container'>
+              <Link  to='/add-note'>
+                <button className='NoteListMain__add-note-button'>
+                  Add Note
+                </button>
+              </Link>
             </div>  
           </div>
     )

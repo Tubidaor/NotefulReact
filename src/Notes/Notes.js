@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import NoteContext from '../NoteContext';
 import PropTypes from 'prop-types';
+import './Notes.css'
 
 
 import {Link} from 'react-router-dom';
@@ -43,7 +44,7 @@ export default class Notes extends Component {
     
     return (
           <div className="Note">
-            <h2 className='noteTitle'>
+            <h2 className='Note__title'>
               <Link to={`/note/${id}`}>
                 {name}
               </Link>
@@ -51,11 +52,11 @@ export default class Notes extends Component {
             <button onClick={this.handleClickDelete}>
               DELETE
             </button>
-            <div className="note_dates">
-              <div className="note_modified">
+            <div className="Note__dates">
+              <div className="Note__dates-modified">
                 Modified
                 {''}
-                <span className="date">
+                <span className="Date">
                   {modified}
                 </span>
               </div>

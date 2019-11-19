@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import './NotePageNav.css';
 
 
 export default function NotePageNav (props) {

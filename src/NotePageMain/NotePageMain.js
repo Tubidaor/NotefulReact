@@ -4,6 +4,7 @@ import NoteContext from '../NoteContext';
 import { findNote } from '../globalFunctions';
 import { PropTypes } from 'prop-types'
 import Boundary from '../Boundary/Boundary';
+import './NotePageMain.css';
 
 
 

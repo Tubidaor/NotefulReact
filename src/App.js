@@ -124,11 +124,11 @@ class App extends Component {
     return (
       <div className="App">
         <NoteContext.Provider value={contextValue}>
-          <nav className='App_nav'>{this.renderNavRoutes()} </nav>
-          <header className="App-header">
+          <nav className='App__nav'>{this.renderNavRoutes()} </nav>
+          <header className="App__header">
           <NavLink to={'/'}>NoteFull</NavLink>
           </header>
-          <main className="App_main"> 
+          <main className="App__main"> 
             {this.renderMainRoutes()}
           </main>
         </NoteContext.Provider>

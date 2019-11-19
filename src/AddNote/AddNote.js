@@ -4,6 +4,7 @@ import NoteForm from '../NoteForm/NoteForm'
 import ValidateNameInput from '../ValidateNameInput'
 import PropTypes from 'prop-types';
 import Boundary from '../Boundary/Boundary';
+import './AddNote.css';
 
 export default class AddNote extends Component {
 
@@ -83,7 +84,7 @@ export default class AddNote extends Component {
   render() {
     const { folders=[] } = this.context
     return (
-      <section className='addNoteSection'>
+      <section className='AddNote'>
         <h2>Whats on your mind?</h2>
         <Boundary>
           <NoteForm onSubmit={this.handleSubmit}>
@@ -111,8 +112,8 @@ export default class AddNote extends Component {
                   </option>)}
               </select>
             </div>
-            <div className='button'>
-              <button type='submit'>
+            <div className='NoteListMain__button-container'>
+              <button className='NoteListMain__add-note-button' type='submit'>
                 Add Note
               </button>
             </div>

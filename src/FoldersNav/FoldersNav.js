@@ -11,19 +11,23 @@ export default class FoldersNav extends Component {
   render() {
     const {folders=[]} = this.context
     return (
-        <div className="folderNav">
-          <ul className="folderNav_list">
+        <div className="NoteListNav">
+          <ul className="NoteListNav__list">
             {folders.map(folder => 
               <li key={folder.id}>
-                <NavLink className='folderNav_Link'
+                <NavLink className='NoteListNav__folder-link'
                 to={`/folder/${folder.id}`}>
                   {folder.name}
                 </NavLink>
               </li>
               )}
           </ul>
-          <div className="addNotes_button-wrapper">
-            <Link to={'/add-folder'}> Add folder </Link>
+          <div className="NoteListNav__button-wrapper">
+            <Link to={'/add-folder'}>
+              <button className='NoteListNav__add-folder-button' >
+                Add folder 
+              </button>
+              </Link>
 
           </div>
         </div>

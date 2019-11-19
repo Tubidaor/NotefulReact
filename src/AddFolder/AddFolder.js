@@ -3,6 +3,7 @@ import NoteForm from '../NoteForm/NoteForm';
 import NoteContext from '../NoteContext';
 import PropTypes from 'prop-types';
 import Boundary from '../Boundary/Boundary';
+import './AddFolder.css';
 
 
 export default class AddFolder extends Component {
@@ -47,7 +48,7 @@ export default class AddFolder extends Component {
 
   render() {
     return(
-      <section className='addFolder'>
+      <section className='AddFolder'>
         <h2>Create Folder</h2>
         <Boundary>
           <NoteForm onSubmit={this.handleSubmit}>
