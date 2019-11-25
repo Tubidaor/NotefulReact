@@ -4,6 +4,7 @@ import NoteContext from '../NoteContext';
 import PropTypes from 'prop-types';
 import Boundary from '../Boundary/Boundary';
 import './AddFolder.css';
+import ValidateNameInput from '../ValidateInput/ValidateNameInput';
 
 
 export default class AddFolder extends Component {
@@ -14,35 +15,60 @@ export default class AddFolder extends Component {
     }
   }
 
+  state = {
+    name: '',
+    error: true,
+  };
+
   static contextType = NoteContext;
+
+  handleInput(name) {
+    if (name.length > 2) {
+    this.setState({
+      name,
+      error: false,
+      errMessage: ''
+    });
+  }
+  }
 
 
   handleSubmit = e => {
-
-    const postUrl = 'http://localhost:9090/folders'
-    e.preventDefault();
-    const newFolder = {
-      name: e.target['folder-name'].value
+    try {
+      if( this.state.error === true) {
+        throw new Error("Folder name with more than 2 characters is required")
+      }
+      else {
+      const postUrl = 'http://localhost:9090/folders'
+      e.preventDefault();
+      const newFolder = {
+        name: e.target['folder-name'].value
+      }
+      fetch(postUrl, {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json'
+        },
+        body: JSON.stringify(newFolder),
+      })
+      .then(res => {
+        if(!res.ok)
+          return res.json().then(e => Promise.reject(e))
+        return res.json()
+      })
+      .then(newFolder => {
+        this.context.addFolder(newFolder)
+        this.props.history.push(`/folder/${newFolder.id}`)
+      })
     }
-    fetch(postUrl, {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json'
-      },
-      body: JSON.stringify(newFolder),
+  }
+  catch(err) {
+    document.getElementById('addFolderInput').value = ""
+    this.setState({
+      error: true,
+      errMessage: err.message
     })
-    .then(res => {
-      if(!res.ok)
-        return res.json().then(e => Promise.reject(e))
-      return res.json()
-    })
-    .then(newFolder => {
-      this.context.addFolder(newFolder)
-      this.props.history.push(`/folder/${newFolder.id}`)
-    })
-    .catch(error => {
-      console.log(error)
-    })
+  }
   }
 
 
@@ -56,7 +82,8 @@ export default class AddFolder extends Component {
               <label htmlFor='addFolderInput'>
                 Folder Name
               </label>
-              <input type='text' id='addFolerInput' name='folder-name'/>
+              <input type='text' id='addFolderInput' name='folder-name' onChange={e => this.handleInput(e.target.value)}/>
+              {this.state.error && <ValidateNameInput message={this.state.errMessage}/>}
             </div>
             <div className='formButtonDiv'>
               <button type='submit'>Add Folder</button>

@@ -38,8 +38,6 @@ export default class AddNote extends Component {
   }
   
   nameInputValue(newNote) {
-    console.log(this.state.name.error);
-    console.log(this.state.name.value)
     if (newNote.length > 2) {
     this.setState({
       name: {
@@ -60,7 +58,6 @@ export default class AddNote extends Component {
   }
 
   handleSubmit = e => {
-    console.log(this.state.name.value)
     const addNoteUrl = 'http://localhost:9090/notes'
     e.preventDefault()
     const newNote = {
@@ -98,7 +95,7 @@ export default class AddNote extends Component {
         this.props.history.push(`/folder/${note.folderId}`)
       })
       .catch(err => {
-        this.input['note-name'].value = ''
+        document.getElementById('noteNameInput').value=''
         this.setState({
           name: {
             value: '',
