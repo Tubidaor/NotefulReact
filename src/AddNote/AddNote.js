@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import NoteContext from '../NoteContext';
 import NoteForm from '../NoteForm/NoteForm'
-import ValidateNameInput from '../ValidateNameInput'
+import ValidateNameInput from '../ValidateInput/ValidateNameInput'
 import PropTypes from 'prop-types';
 import Boundary from '../Boundary/Boundary';
 import './AddNote.css';
@@ -9,6 +9,9 @@ import './AddNote.css';
 export default class AddNote extends Component {
 
   static defaultProps = {
+    name: {
+      value: ''
+    },
     history: {
       push: () => {}
     }
@@ -21,35 +24,43 @@ export default class AddNote extends Component {
     this.state = {
       name: {
         value:'',
-        touched: false
+        touched: false,
+        error: true,
+        errMessage: ""
       },
-      content: {
-        value: '',
-        touched: false
+      folder: {
+        value: 'noFolder',
+        touched: false,
+        error: true,
+        errMessage: ""
       }
     } 
   }
   
   nameInputValue(newNote) {
+    console.log(this.state.name.error);
+    console.log(this.state.name.value)
+    if (newNote.length > 2) {
     this.setState({
       name: {
         value: newNote,
-        touched: true
-      }
+        touched: true,
+        error: false
+      },
     });
   }
+  }
 
-  validateName() {
-    const  name  = this.state.name.value.trim()
-
-    if (name.length === 0) {
-      return 'Name is required';
-    }
-    console.log(name)
+  folderChoice = (folder) => {
+    this.setState({
+      folder: {
+        value: folder
+      }
+    })
   }
 
   handleSubmit = e => {
-
+    console.log(this.state.name.value)
     const addNoteUrl = 'http://localhost:9090/notes'
     e.preventDefault()
     const newNote = {
@@ -58,26 +69,68 @@ export default class AddNote extends Component {
       folderId: e.target['note-folder-id'].value,
       modified: new Date(),
     }
+    
+    const  {folder} = this.state
+    try {
+      const { name } = this.state;
 
-    fetch(addNoteUrl, {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json'
-      },
-      body: JSON.stringify(newNote),
-    })
-    .then(res => {
-      if(!res.ok)
-        return res.json().then(e => Promise.reject(e))
-      return res.json()
-    })
-    .then(note => {
-      this.context.addNote(note)
-      this.props.history.push(`/folder/${note.folderId}`)
-    })
-    .catch(error => {
-      console.error((error))
-    })
+      if (name.error === true) {
+        throw new Error('Name_Error')
+      } 
+      if ( folder.value === 'noFolder') {
+        throw new Error('Folder_Error');
+      }
+      else {
+      fetch(addNoteUrl, {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json'
+        },
+        body: JSON.stringify(newNote),
+      })
+      .then(res => {
+        if(!res.ok)
+          return res.json().then(e => Promise.reject(e))
+        return res.json()
+      })
+      .then(note => {
+        this.context.addNote(note)
+        this.props.history.push(`/folder/${note.folderId}`)
+      })
+      .catch(err => {
+        this.input['note-name'].value = ''
+        this.setState({
+          name: {
+            value: '',
+            error: true,
+            errMessage: err
+          }
+          
+        })
+      })
+    }
+  }
+  catch(err) {
+    if (err.message === "Name_Error") {
+      document.getElementById('noteNameInput').value=''
+      this.setState({
+        name: {
+          errMessage: 'Name longer than 3 characters is required',
+          error: true
+        }
+      })
+    }
+    if (err.message === "Folder_Error") {
+      document.getElementById('noteNameInput').value=''
+      this.setState({
+        folder: {
+          errMessage: 'Folder is required',
+          error: true
+        }
+      })
+    }
+    else { }
+  }
 
   }
 
@@ -92,8 +145,15 @@ export default class AddNote extends Component {
               <label htmlFor='noteNameInput'>
                 Name
               </label>
-              <input type='text' id='noteNameInput' name='note-name' onChange={e => this.nameInputValue(e.target.value)}/>
-              {this.state.name.touched && <ValidateNameInput message={this.validateName()}/>}
+              <input
+                type='text'
+                id='noteNameInput'
+                name='note-name'
+                aria-label="Name for note"
+                aria-required="true"
+                aria-describedby="nameInputError"
+                onChange={e => this.nameInputValue(e.target.value)}/>
+              {this.state.name.error && <ValidateNameInput message={this.state.name.errMessage}/>}
             </div>
             <div className='addNoteDiv'>
               <label htmlFor='noteContentInput'>
@@ -105,12 +165,14 @@ export default class AddNote extends Component {
               <label htmlFor='noteFolderSelect'>
                 Folder
               </label>
-              <select id='noteFolderSelect' name='note-folder-id'>
+              <select onChange={e => this.folderChoice(e.target.value)} id='noteFolderSelect' name='note-folder-id'>
+                  <option value="noFolder">...</option>
                 {folders.map(folder => 
                   <option key={folder.id} value={folder.id}>
                     {folder.name}
                   </option>)}
               </select>
+              {this.state.folder.error && <ValidateNameInput message={this.state.folder.errMessage}/>}
             </div>
             <div className='NoteListMain__button-container'>
               <button className='NoteListMain__add-note-button' type='submit'>
