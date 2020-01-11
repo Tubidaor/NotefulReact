@@ -18,8 +18,8 @@ class App extends Component {
   }
 
   componentDidMount() {
-    const urlFolders = 'http://localhost:9090/folders'
-    const urlNotes = 'http://localhost:9090/notes'
+    const urlFolders = 'http://localhost:8000/api/folders'
+    const urlNotes = 'http://localhost:8000/api/notes'
 
     fetch(urlFolders)
     .then(response => response.json())
@@ -27,7 +27,7 @@ class App extends Component {
       this.setState({
         folders: data
       }));
-
+    console.log(this.state.folders)
     fetch(urlNotes)
     .then(response => response.json())
     .then(data =>
@@ -50,7 +50,7 @@ class App extends Component {
   }
 
   addNote = () => {
-    const urlNotes = 'http://localhost:9090/notes'
+    const urlNotes = 'http://localhost:8000/api/notes'
 
     fetch(urlNotes)
     .then(res => {

@@ -34,7 +34,7 @@ export default class NoteList extends Component {
                   <Boundary>
                     <Notes
                       id={note.id}
-                      name={note.name}
+                      name={note.note_name}
                       modified={note.modified}
                     />
                   </Boundary>

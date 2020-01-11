@@ -31,7 +31,7 @@ export default class NotePageMain extends Component {
         <Boundary>
           <Notes
           id={note.id}
-          name={note.name}
+          name={note.note_name}
           modified={note.modified}
           onDeleteNote={this.handleDeleteNote}
           />

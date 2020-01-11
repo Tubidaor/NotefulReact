@@ -17,7 +17,7 @@ export default class FoldersNav extends Component {
               <li key={folder.id}>
                 <NavLink className='NoteListNav__folder-link'
                 to={`/folder/${folder.id}`}>
-                  {folder.name}
+                  {folder.folder_name}
                 </NavLink>
               </li>
               )}

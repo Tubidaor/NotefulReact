@@ -5,9 +5,9 @@ folders.find(folder => folder.id === folderId);
 export const findNote = (notes=[], noteId) => 
 notes.find(note => note.id === noteId);
 
-export const getNotesForFolder = (notes=[], folderId) => (
-(!folderId)
+export const getNotesForFolder = (notes=[], folder_id) => (
+(!folder_id)
 ? notes
-: notes.filter(note => note.folderId === folderId)
+: notes.filter(note => note.folder_id === folder_id)
 )
 
