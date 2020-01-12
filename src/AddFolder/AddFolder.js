@@ -39,10 +39,10 @@ export default class AddFolder extends Component {
         throw new Error("Folder name with more than 2 characters is required")
       }
       else {
-      const postUrl = 'http://localhost:9090/folders'
+      const postUrl = 'http://localhost:8000/api/folders'
       e.preventDefault();
       const newFolder = {
-        name: e.target['folder-name'].value
+        folder_name: e.target['folder-name'].value
       }
       fetch(postUrl, {
         method: 'POST',

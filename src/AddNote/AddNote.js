@@ -58,12 +58,12 @@ export default class AddNote extends Component {
   }
 
   handleSubmit = e => {
-    const addNoteUrl = 'http://localhost:9090/notes'
+    const addNoteUrl = 'http://localhost:8000/api/notes'
     e.preventDefault()
     const newNote = {
-      name: e.target['note-name'].value,
+      note_name: e.target['note-name'].value,
       content: e.target['note-content'].value,
-      folderId: e.target['note-folder-id'].value,
+      folder_id: e.target['note-folder-id'].value,
       modified: new Date(),
     }
     
@@ -92,7 +92,7 @@ export default class AddNote extends Component {
       })
       .then(note => {
         this.context.addNote(note)
-        this.props.history.push(`/folder/${note.folderId}`)
+        this.props.history.push(`/folder/${note.folder_id}`)
       })
       .catch(err => {
         document.getElementById('noteNameInput').value=''
@@ -166,7 +166,7 @@ export default class AddNote extends Component {
                   <option value="noFolder">...</option>
                 {folders.map(folder => 
                   <option key={folder.id} value={folder.id}>
-                    {folder.name}
+                    {folder.folder_name}
                   </option>)}
               </select>
               {this.state.folder.error && <ValidateNameInput message={this.state.folder.errMessage}/>}
