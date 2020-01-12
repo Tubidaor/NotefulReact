@@ -16,10 +16,10 @@ class App extends Component {
     notes: [],
     folders: []
   }
-
+  
   componentDidMount() {
-    const urlFolders = 'http://localhost:8000/api/folders'
-    const urlNotes = 'http://localhost:8000/api/notes'
+    const urlFolders = 'https://tranquil-dawn-62196.herokuapp.com/api/folders'
+    const urlNotes = 'https://tranquil-dawn-62196.herokuapp.com/api/notes'
 
     fetch(urlFolders)
     .then(response => response.json())
@@ -27,7 +27,6 @@ class App extends Component {
       this.setState({
         folders: data
       }));
-    console.log(this.state.folders)
     fetch(urlNotes)
     .then(response => response.json())
     .then(data =>
@@ -50,7 +49,7 @@ class App extends Component {
   }
 
   addNote = () => {
-    const urlNotes = 'http://localhost:8000/api/notes'
+    const urlNotes = 'https://tranquil-dawn-62196.herokuapp.com/api/notes'
 
     fetch(urlNotes)
     .then(res => {

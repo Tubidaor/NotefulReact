@@ -39,7 +39,7 @@ export default class AddFolder extends Component {
         throw new Error("Folder name with more than 2 characters is required")
       }
       else {
-      const postUrl = 'http://localhost:8000/api/folders'
+      const postUrl = 'https://tranquil-dawn-62196.herokuapp.com/api/folders'
       e.preventDefault();
       const newFolder = {
         folder_name: e.target['folder-name'].value

@@ -58,7 +58,7 @@ export default class AddNote extends Component {
   }
 
   handleSubmit = e => {
-    const addNoteUrl = 'http://localhost:8000/api/notes'
+    const addNoteUrl = 'https://tranquil-dawn-62196.herokuapp.com/api/notes'
     e.preventDefault()
     const newNote = {
       note_name: e.target['note-name'].value,

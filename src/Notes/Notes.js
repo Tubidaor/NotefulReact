@@ -17,7 +17,7 @@ export default class Notes extends Component {
   handleClickDelete = (event) => {
     event.preventDefault();
     const noteId = this.props.id
-    const urlNotes = `http://localhost:8000/api/notes/${noteId}`
+    const urlNotes = `https://tranquil-dawn-62196.herokuapp.com/api/notes/${noteId}`
     fetch(urlNotes, {
       method:'DELETE',
       headers: {
