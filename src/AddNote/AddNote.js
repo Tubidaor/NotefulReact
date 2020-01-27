@@ -38,7 +38,7 @@ export default class AddNote extends Component {
   }
   
   nameInputValue(newNote) {
-    if (newNote.length > 2) {
+    if (newNote.length > 3) {
     this.setState({
       name: {
         value: newNote,
@@ -109,7 +109,7 @@ export default class AddNote extends Component {
   }
   catch(err) {
     if (err.message === "Name_Error") {
-      document.getElementById('noteNameInput').value=''
+      document.getElementById('noteNameInput').value= document.getElementById('noteNameInput').value
       this.setState({
         name: {
           errMessage: 'Name longer than 3 characters is required',
@@ -118,7 +118,7 @@ export default class AddNote extends Component {
       })
     }
     if (err.message === "Folder_Error") {
-      document.getElementById('noteNameInput').value=''
+      document.getElementById('noteFolderSelect').value= document.getElementById('noteFolderSelect').value
       this.setState({
         folder: {
           errMessage: 'Folder is required',

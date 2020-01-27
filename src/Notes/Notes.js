@@ -25,10 +25,13 @@ export default class Notes extends Component {
       },
     })
     .then(response => {
-      if (!response.ok)
-        return response.json().then(event => Promise.reject(event))
-      return response.json()
-    })
+      async function waitForResponse(response) {
+        if (!response.ok)
+        return await response.json().then(event => Promise.reject(event))
+      return await response.json()
+    }
+    waitForResponse(response)
+  })
     .then(() => {
       this.context.deleteNote(noteId)
       this.props.onDeleteNote(noteId)
